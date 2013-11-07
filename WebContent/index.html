@@ -1,0 +1,120 @@
+
+<html>
+<head>
+	<link href="css/snowcascade/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+  <script type="text/javascript">
+
+var daysCount = new Array();
+var activeDays = new Array();
+
+  
+$.getJSON('data.json', function(data) {
+	var $resorts = $( "#resorts" );
+
+	$.each(data, function(index, item) {
+		  $resorts.append("<h3>" + item.name + "</h3><div id='resort-" + index + "'><ul id='tabs-" + index + "'/></div>");
+		  
+		  $( "#tabs-" + index ).append("<li><a href='#tabs-" + index + "-conditions'>" + item.conditions.title + "</a></li>");
+		  parseGenericDisplay("#resort-" + index, "tabs-" + index + "-conditions", item.conditions.body);
+
+
+ 		  $( "#tabs-" + index ).append("<li><a href='#tabs-" + index + "-weather'>" + item.weather.title + "</a></li>");
+	$( "#resort-" + index ).append("<div id='tabs-" + index + "-weather'/>");
+ 		  weatherDays = item.weather.tabs;
+ 		  daysCount.push(weatherDays.length);
+ 		  activeDays.push(0);
+ 		  $.each(weatherDays, function(i, weatherItem) {
+ 		  	name = "tabs-" + index + "-weather-" + i;
+ 		  	if ( i != 0 ) {
+				$( "#tabs-" + index + "-weather" ).append("<div id='" + name + "' class='weather-container' style='display:none'/>");
+ 		  	} else {
+				$( "#tabs-" + index + "-weather" ).append("<div id='" + name + "' class='weather-container'>");
+ 		  	}
+ 		  	parseWeatherDisplay("#" + name, index, i, weatherItem);
+ 		  });
+
+		  $( "#tabs-" + index ).append("<li><a href='#tabs-" + index + "-traffic'>" + item.traffic.title + "</a></li>");
+		  parseGenericDisplay("#resort-" + index, "tabs-" + index + "-traffic", item.traffic.body);
+
+		    $( "#resort-" + index ).tabs();
+	  });
+
+    $( "#resorts" ).accordion({
+	    collapsible: true,
+	    heightStyle: "content",
+	    active: false
+	});
+	 
+});
+
+function parseWeatherDisplay(name, index, i, container) {
+	var leftDisabled = "";
+	if ( i == 0 ) {
+		leftDisabled = "disabled='disabled' ";
+	}
+	var rightDisabled = "";
+	if ( i + 1 == daysCount[index] ) {
+		rightDisabled = "disabled='disabled' ";
+	}
+	$( name ).append("<button " + leftDisabled + "onclick='weatherLeft()' class='weather-left-button'><span class='ui-icon ui-icon-arrowthick-1-w'></span></button>");
+	$( name ).append("<button " + rightDisabled + "onclick='weatherRight()' class='weather-right-button'><span class='ui-icon ui-icon-arrowthick-1-e'></button>");
+	$.each(container, function(j,item) {
+		if( item.icon) {
+			$( name ).append("<img src='" + item.icon + "' class='weather-icon'/>");
+		}
+		if( item.header) {
+			$( name ).append("<h4>" + item.header + "</h4>");
+		}
+		if( item.text) {
+			$( name ).append("<p>" + item.text + "</p>");
+		}
+	
+	});
+	$( name ).append("</div>");
+}
+
+function parseGenericDisplay(id, name, container) {
+	$( id ).append("<div id='" + name + "'/>");
+	$.each(container, function(index,item) {
+		header = item.header;
+		text = item.text;
+		$( "#" + name ).append("<h4>" + header + "</h4>");
+		$( "#" + name ).append("<p>" + text + "</p>");
+	});
+}
+
+function weatherLeft() {
+
+	var activeResort = $( "#resorts" ).accordion( "option", "active" );
+	var activeDay = activeDays[activeResort];
+	if ( activeDay > 0 ) {
+		$( "#tabs-" + activeResort + "-weather-" + ( activeDay - 1 ) ).show();
+		$( "#tabs-" + activeResort + "-weather-" + activeDay ).hide();
+		activeDays[activeResort]--;
+	}
+	
+}
+
+function weatherRight() {
+	var activeResort = $( "#resorts" ).accordion( "option", "active" );
+	var activeDay = activeDays[activeResort];
+	if ( activeDay + 1 < daysCount[activeResort] ) {
+		$( "#tabs-" + activeResort + "-weather-" + ( activeDay + 1 ) ).show();
+		$( "#tabs-" + activeResort + "-weather-" + activeDay ).hide();
+		activeDays[activeResort]++;
+	}
+	
+}
+
+  
+</script>
+</head>
+<body>
+<img src="icons/snowcom45.png" class="mainlogo"/>
+<div id="resorts">
+</div>
+</body>
+</html>

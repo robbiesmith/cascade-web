@@ -1,0 +1,23 @@
+.mainlogo{
+	padding:20px;
+}
+
+.weather-container{
+	padding:20px;
+	max-width: 300px;
+}
+
+.weather-left-button{
+	float:left;
+}
+
+.weather-right-button{
+	float:right;
+}
+
+.weather-icon{
+	clear:both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
