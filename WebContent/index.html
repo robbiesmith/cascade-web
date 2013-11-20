@@ -21,7 +21,7 @@ $.getJSON('data.json', function(data) {
 	var $resorts = $( "#resorts" );
 
 	$.each(data.resorts, function(index, item) {
-		  $resorts.append("<h3>" + item.name + "</h3><div id='resort-" + index + "'><img src='" + item.logo + "' class='resort-icon'/><ul id='tabs-" + index + "'/></div>");
+		  $resorts.append("<h3><span>" + item.name + "</span><img src='" + item.logo + "' class='resort-icon' alt='" + item.name + "'/><div style='clear:both;'/></h3><div id='resort-" + index + "'><ul id='tabs-" + index + "'/></div>");
 		  
 		  $( "#tabs-" + index ).append("<li><a href='#tabs-" + index + "-conditions'>" + item.conditions.title + "</a></li>");
 		  parseGenericDisplay("#resort-" + index, "tabs-" + index + "-conditions", item.conditions.body);

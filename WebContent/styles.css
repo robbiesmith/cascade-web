@@ -24,11 +24,10 @@
 }
 
 .resort-icon{
-	clear:both;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	padding-bottom: 1em;
+	float:right;
+	padding: 0.1em 0.1em;
+	max-height: 40px;
 }
 
 body:after {
