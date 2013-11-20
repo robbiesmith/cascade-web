@@ -20,6 +20,15 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+	padding-bottom: 1em;
+}
+
+.resort-icon{
+	clear:both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 1em;
 }
 
 body:after {

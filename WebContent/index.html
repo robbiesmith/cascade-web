@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="icon" type="image/png" href="icons/Snowflake-icon.png" />
 <title>Snow Cascades</title>
-<meta name="keywords" content="Snow, Ski, Snowboard, Snoqualmie, Crystal, Stevens, Baker, White, Conditions, Traffic, Weather, Washington">
+<meta name="keywords" content="Snow, Ski, Snowboard, Snoqualmie, Crystal, Stevens, Baker, White, Conditions, Traffic, Weather, Washington, Alpental, Powder. Skiing, Telemark, Mountain">
 <meta name="description" content="A reference for current snow, weather and traffic conditions for the Cascade ski areas of Washington.">
         <script type="text/javascript">
 
@@ -21,7 +21,7 @@ $.getJSON('data.json', function(data) {
 	var $resorts = $( "#resorts" );
 
 	$.each(data.resorts, function(index, item) {
-		  $resorts.append("<h3>" + item.name + "</h3><div id='resort-" + index + "'><ul id='tabs-" + index + "'/></div>");
+		  $resorts.append("<h3>" + item.name + "</h3><div id='resort-" + index + "'><img src='" + item.logo + "' class='resort-icon'/><ul id='tabs-" + index + "'/></div>");
 		  
 		  $( "#tabs-" + index ).append("<li><a href='#tabs-" + index + "-conditions'>" + item.conditions.title + "</a></li>");
 		  parseGenericDisplay("#resort-" + index, "tabs-" + index + "-conditions", item.conditions.body);
