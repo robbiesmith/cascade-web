@@ -23,6 +23,12 @@
 	padding-bottom: 1em;
 }
 
+.resort-name{
+	height: 2em;
+    float:left;
+    margin-top:0.75em;
+}
+
 .resort-icon{
 	display: block;
 	float:right;
