@@ -92,9 +92,18 @@ function parseGenericDisplay(id, name, container) {
 	$( id ).append("<div id='" + name + "'/>");
 	$.each(container, function(index,item) {
 		header = item.header;
+		if ( header ) {
+			$( "#" + name ).append("<h4>" + header + "</h4>");
+		}
 		text = item.text;
-		$( "#" + name ).append("<h4>" + header + "</h4>");
-		$( "#" + name ).append("<p>" + text + "</p>");
+		if ( text ) {
+			$( "#" + name ).append("<p>" + text + "</p>");
+		}
+		linktext = item.linktext;
+		link = item.link;
+		if ( linktext && link ) {
+			$( "#" + name ).append("<p><a href='" + link + "'>" + linktext + "</a></p>");
+		}
 	});
 }
 
